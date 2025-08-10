@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -87,27 +87,6 @@ const WeUseWhatWeBuild = () => {
         },
       });
 
-      // Animação fluida de scroll para Caroline e Emily (cards 3 e 4)
-      const cardsToAnimate = document.querySelectorAll(".testimonial-item");
-
-      cardsToAnimate.forEach((card) => {
-        if (
-          card.classList.contains("bottom-32") || // Caroline
-          card.classList.contains("bottom-20") // Emily
-        ) {
-          gsap.to(card, {
-            y: 50,
-            ease: "power1.out",
-            scrollTrigger: {
-              trigger: ".testimonials-grid",
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          });
-        }
-      });
-
       // Hover nas imagens
       const images = document.querySelectorAll(".testimonial-image");
       images.forEach((img) => {
@@ -158,21 +137,21 @@ const WeUseWhatWeBuild = () => {
       id: 1,
       name: "JOHN SMITH",
       role: "Creative Director",
-      text: "MindPlace has helped put my creative mind with my clients and perspectives so I can better understand their points of view.",
+      text: "MindPlace has helped put my creative mind with my clients and perspectives so I can better understand their points of view. Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora modi iste nostrum, ipsum debitis aliquam harum deserunt recusandae sapiente reprehenderit iure doloremque repellendus a ab eum, assumenda dolores atque facilis.",
       image:
         "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=400&fit=crop",
-      imageClass: "w-96 h-[28rem] rounded-[2.5rem]",
-      containerClass: "absolute top-20 left-0",
+      imageClass: "w-96 h-[28rem] ",
+      containerClass: "absolute top-20 left-20",
     },
     {
       id: 2,
       name: "MATTHEW GARDNER",
       role: "Product Manager",
-      text: "MindPlace helped me find the perfect mindful gift for my wife and undelete clarity into our part and removing friction for next year.",
+      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora modi iste nostrum, ipsum debitis aliquam harum deserunt recusandae sapiente reprehenderit iure doloremque repellendus a ab eum, assumenda dolores atque facilis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora modi iste nostrum, ipsum debitis aliquam harum deserunt recusandae sapiente reprehenderit iure doloremque repellendus a ab eum, assumenda dolores atque facilis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora modi iste nostrum, ipsum debitis aliquam harum deserunt recusandae sapiente reprehenderit iure doloremque repellendus a ab eum, assumenda dolores atque facilis.",
       image:
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-      imageClass: "w-80 h-80 rounded-full",
-      containerClass: "absolute top-0 right-20",
+      imageClass: "w-96 h-80 ",
+      containerClass: "absolute top-0  right-20",
     },
   ];
 
@@ -198,13 +177,13 @@ const WeUseWhatWeBuild = () => {
         <div className="side-letters text-black text-xl">✿</div>
       </div>
 
-      <div className="main-container max-w-7xl mx-auto px-8">
+      <div className="main-container max-w-9xl mx-auto px-8">
         {/* Título principal */}
-        <div className="main-title text-center mb-16 mt-8">
+        <div className="main-title text-center mb-16 mt-40">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight tracking-wide">
             We Use What
             <br />
-            <span className="changing-word text-black-500">Build.</span>
+            <span className="changing-word text-black">Build.</span>
           </h1>
           <p className="mt-12 text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
             At the heart of our process is a deep-rooted belief in the quality
@@ -216,7 +195,7 @@ const WeUseWhatWeBuild = () => {
         </div>
 
         {/* Grid de testemunhos */}
-        <div className="testimonials-grid relative h-[100vh] max-w-7xl mx-auto">
+        <div className="testimonials-grid relative h-[100vh] max-w-7xl mx-auto mb-40">
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}
@@ -256,21 +235,9 @@ const WeUseWhatWeBuild = () => {
               {/* Informações do testemunho */}
               <div className={`max-w-sm mb-20`}>
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden mr-4">
-                    <img
-                      src={`https://images.unsplash.com/photo-${
-                        1500000000000 + testimonial.id
-                      }?w=100&h=100&fit=crop&crop=face`}
-                      alt={testimonial.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-base text-gray-900">
-                      {testimonial.name}
-                    </h3>
-                    <p className="text-sm text-gray-500">{testimonial.role}</p>
-                  </div>
+                  <h3 className="font-bold text-base text-gray-900">
+                    {testimonial.name}
+                  </h3>
                 </div>
                 <p className="text-gray-600 text-base leading-relaxed">
                   {testimonial.text}
