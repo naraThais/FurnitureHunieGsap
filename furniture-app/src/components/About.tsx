@@ -2,7 +2,8 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
+import image from "../assets/furniture.jpg";
+import image2 from "../assets/producto.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 const WeUseWhatWeBuild = () => {
@@ -138,54 +139,63 @@ const WeUseWhatWeBuild = () => {
       name: "JOHN SMITH",
       role: "Creative Director",
       text: "MindPlace has helped put my creative mind with my clients and perspectives so I can better understand their points of view. Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora modi iste nostrum, ipsum debitis aliquam harum deserunt recusandae sapiente reprehenderit iure doloremque repellendus a ab eum, assumenda dolores atque facilis.",
-      image:
-        "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=400&fit=crop",
+      image: image,
       imageClass: "w-96 h-[28rem] ",
-      containerClass: "absolute top-20 left-20",
+      containerClass: "absolute top-20 left-20 ",
     },
     {
       id: 2,
       name: "MATTHEW GARDNER",
       role: "Product Manager",
       text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora modi iste nostrum, ipsum debitis aliquam harum deserunt recusandae sapiente reprehenderit iure doloremque repellendus a ab eum, assumenda dolores atque facilis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora modi iste nostrum, ipsum debitis aliquam harum deserunt recusandae sapiente reprehenderit iure doloremque repellendus a ab eum, assumenda dolores atque facilis. Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora modi iste nostrum, ipsum debitis aliquam harum deserunt recusandae sapiente reprehenderit iure doloremque repellendus a ab eum, assumenda dolores atque facilis.",
-      image:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-      imageClass: "w-96 h-80 ",
+      image: image2,
+      imageClass: "w-96 h-80  ",
       containerClass: "absolute top-0  right-20",
     },
   ];
 
   return (
     <div
+      id="about"
       ref={containerRef}
-      className="min-h-screen relative overflow-hidden py-16 mt-10"
+      className="min-h-screen relative overflow-hidden py-16 mt-10 bg-black"
     >
       {/* Letras laterais */}
       <div className="absolute left-8 top-1/2 transform -translate-y-1/2 space-y-6">
-        <div className="side-letters text-black text-lg font-bold">H</div>
-        <div className="side-letters text-black text-lg font-bold">E</div>
-        <div className="side-letters text-black text-lg font-bold">N</div>
-        <div className="side-letters text-black text-lg font-bold">I</div>
-        <div className="side-letters text-black text-lg font-bold">E</div>
+        <div className="hero-logo side-letters text-white text-lg font-bold">
+          H
+        </div>
+        <div className="hero-logo side-letters text-white text-lg font-bold">
+          E
+        </div>
+        <div className="hero-logo side-letters text-white text-lg font-bold">
+          N
+        </div>
+        <div className="hero-logo side-letters text-white text-lg font-bold">
+          I
+        </div>
+        <div className="hero-logo side-letters text-white text-lg font-bold">
+          E
+        </div>
       </div>
 
       {/* Letras laterais direita */}
       <div className="absolute right-8 top-1/3 space-y-4">
-        <div className="side-letters text-black text-2xl">✦</div>
-        <div className="side-letters text-black text-xl">❋</div>
-        <div className="side-letters text-black text-lg">✧</div>
-        <div className="side-letters text-black text-xl">✿</div>
+        <div className="hero-logo side-letters text-white text-2xl">✦</div>
+        <div className="hero-logo side-letters text-white text-xl">❋</div>
+        <div className="hero-logo side-letters text-white text-lg">✧</div>
+        <div className="hero-logo side-letters text-white text-xl">✿</div>
       </div>
 
       <div className="main-container max-w-9xl mx-auto px-8">
         {/* Título principal */}
         <div className="main-title text-center mb-16 mt-40">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 leading-tight tracking-wide">
+          <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight tracking-wide">
             We Use What
             <br />
-            <span className="changing-word text-black">Build.</span>
+            <span className="changing-word text-shadow-blue-950">Build.</span>
           </h1>
-          <p className="mt-12 text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
+          <p className="mt-12 text-white max-w-2xl mx-auto text-lg leading-relaxed">
             At the heart of our process is a deep-rooted belief in the quality
             and potential of MindPlace. Before anything reaches your hands, it
             undergoes rigorous internal testing. Our team uses MindPlace daily
@@ -235,11 +245,11 @@ const WeUseWhatWeBuild = () => {
               {/* Informações do testemunho */}
               <div className={`max-w-sm mb-20`}>
                 <div className="flex items-center mb-4">
-                  <h3 className="font-bold text-base text-gray-900">
+                  <h3 className="font-bold text-base text-white">
                     {testimonial.name}
                   </h3>
                 </div>
-                <p className="text-gray-600 text-base leading-relaxed">
+                <p className="text-white text-base leading-relaxed">
                   {testimonial.text}
                 </p>
               </div>

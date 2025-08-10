@@ -1,6 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import image from "../assets/arch.jpg";
+import image2 from "../assets/producto.jpg";
+import image3 from "../assets/furniture.jpg";
+import image4 from "../assets/product.jpg";
+import image5 from "../assets/interior.jpg";
+import image6 from "../assets/chair.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -9,15 +16,9 @@ const ProductGrid = () => {
   const maskRef = useRef(null);
   const movingImageRef = useRef(null);
   const bentoGridRef = useRef(null);
+  const firstGridItemRef = useRef(null);
 
-  const images = [
-    "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=600&fit=crop&crop=center",
-    "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=600&fit=crop&crop=center",
-    "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400&h=400&fit=crop&crop=center",
-    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=400&fit=crop&crop=center",
-    "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400&h=500&fit=crop&crop=center",
-    "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=400&h=300&fit=crop&crop=center",
-  ];
+  const images = [image, image2, image3, image4, image5, image6];
 
   const heroImage = images[0];
 
@@ -33,6 +34,7 @@ const ProductGrid = () => {
         },
       });
 
+      // Fade out da máscara
       tl.to(maskRef.current, {
         opacity: 0,
         scale: 1.1,
@@ -40,6 +42,7 @@ const ProductGrid = () => {
         ease: "power2.out",
       });
 
+      // Aparição da imagem que se move
       tl.fromTo(
         movingImageRef.current,
         { opacity: 0, scale: 0.5 },
@@ -47,36 +50,39 @@ const ProductGrid = () => {
         0.4
       );
 
+      // Movimento da imagem para a posição do primeiro item do grid
       tl.to(
         movingImageRef.current,
         {
-          x: () => {
-            const gridRect = bentoGridRef.current?.getBoundingClientRect();
-            const imageRect = movingImageRef.current?.getBoundingClientRect();
+          left: () => {
+            const firstItemRect =
+              firstGridItemRef.current?.getBoundingClientRect();
             const containerRect = containerRef.current?.getBoundingClientRect();
 
-            if (!gridRect || !imageRect || !containerRect) return 0;
+            if (!firstItemRect || !containerRect) return "50%";
 
-            // Posição relativa do item 1 do grid
-            const targetX =
-              gridRect.left - containerRect.left - imageRect.left + 0;
-
-            return targetX;
+            return `${firstItemRect.left - containerRect.left}px`;
           },
-          y: () => {
-            const gridRect = bentoGridRef.current;
-            const imageRect = movingImageRef.current;
-            const containerRect = containerRef.current;
+          top: () => {
+            const firstItemRect =
+              firstGridItemRef.current?.getBoundingClientRect();
+            const containerRect = containerRef.current?.getBoundingClientRect();
 
-            if (!gridRect || !imageRect || !containerRect) return 0;
+            if (!firstItemRect || !containerRect) return "50%";
 
-            // Posição relativa do item 1 do grid
-            const targetY =
-              gridRect.top - containerRect.top - imageRect.top + 0;
-
-            return targetY;
+            return `${firstItemRect.top - containerRect.top}px`;
           },
-          scale: 0.85,
+          width: () => {
+            const firstItemRect =
+              firstGridItemRef.current?.getBoundingClientRect();
+            return firstItemRect ? `${firstItemRect.width}px` : "384px";
+          },
+          height: () => {
+            const firstItemRect =
+              firstGridItemRef.current?.getBoundingClientRect();
+            return firstItemRect ? `${firstItemRect.height}px` : "384px";
+          },
+          transform: "translate(0, 0)",
           borderRadius: "1rem",
           duration: 1.2,
           ease: "power2.inOut",
@@ -84,8 +90,9 @@ const ProductGrid = () => {
         1.2
       );
 
+      // Aparecer os outros itens do grid (exceto o primeiro)
       tl.fromTo(
-        ".grid-item",
+        ".grid-item:not(.first-item)",
         { opacity: 0, y: 50, scale: 0.9 },
         {
           opacity: 1,
@@ -96,6 +103,28 @@ const ProductGrid = () => {
           ease: "power2.out",
         },
         1.8
+      );
+
+      // Fazer a imagem que se move desaparecer e o primeiro item do grid aparecer
+      tl.to(
+        movingImageRef.current,
+        {
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.out",
+        },
+        2.5
+      );
+
+      tl.fromTo(
+        ".first-item",
+        { opacity: 0 },
+        {
+          opacity: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        },
+        2.5
       );
     }, containerRef);
 
@@ -136,7 +165,7 @@ const ProductGrid = () => {
         {/* Imagem que se move */}
         <div
           ref={movingImageRef}
-          className="absolute w-96 h-96 opacity-0 z-20 rounded-2xl shadow-2xl"
+          className="absolute w-96 h-96 opacity-0 z-30 rounded-2xl shadow-2xl"
           style={{
             backgroundImage: `url(${heroImage})`,
             backgroundSize: "cover",
@@ -144,17 +173,21 @@ const ProductGrid = () => {
             left: "50%",
             top: "50%",
             transform: "translate(-50%, -50%)",
-            willChange: "transform, opacity",
+            willChange: "transform, opacity, width, height",
           }}
         />
 
         {/* Grid Bento maior e centralizado */}
         <div
           ref={bentoGridRef}
-          className="absolute bottom-20 left-1/2 transform -translate-x-1/2 grid grid-cols-4 grid-rows-3 gap-6 w-full max-w-6xl max-h-[80vh]"
+          className="absolute bottom-20 left-1/2 transform -translate-x-1/2 grid grid-cols-4 grid-rows-3 gap-6 w-full max-w-6xl max-h-[80vh] z-20"
           style={{ height: "auto" }}
         >
-          <div className="grid-item col-span-2 row-span-2 rounded-2xl overflow-hidden opacity-0 shadow-2xl">
+          <div
+            id="products"
+            ref={firstGridItemRef}
+            className="grid-item first-item col-span-2 row-span-2 rounded-2xl overflow-hidden opacity-0 shadow-2xl"
+          >
             <img
               src={images[0]}
               alt="Produto Principal"
@@ -198,9 +231,6 @@ const ProductGrid = () => {
           </div>
         </div>
       </div>
-
-      {/* Espaço para scroll */}
-      <div className="h-screen" />
     </>
   );
 };

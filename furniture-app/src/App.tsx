@@ -4,7 +4,7 @@ import Hero from "./components/Hero";
 import Header from "./components/Header";
 import WeUseWhatWeBuild from "./components/About";
 import ProductGrid from "./components/ProductGrid";
-
+import Cursor from "./components/ui/Curso";
 function App() {
   const [hideHeader, setHideHeader] = useState(false);
   const productGridRef = useRef(null);
@@ -31,13 +31,16 @@ function App() {
 
   return (
     <>
-      {!hideHeader && <Header />}
-      <Hero />
-      <WeUseWhatWeBuild />
-      <div ref={productGridRef}>
-        <ProductGrid />
+      <div className="frame">
+        <Cursor />
+        {!hideHeader && <Header />}
+        <Hero />
+        <WeUseWhatWeBuild />
+        <div ref={productGridRef}>
+          <ProductGrid />
+        </div>
+        <div className="w-900px"></div>
       </div>
-      <div className="w-900px"></div>
     </>
   );
 }

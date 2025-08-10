@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap");
+
 @import "tailwindcss";
 @theme {
   --color-brown-100: #f8f3ed;
@@ -10,6 +12,7 @@
 * {
   padding: 0;
   box-sizing: border-box;
+  cursor: none !important;
 }
 
 html {
@@ -22,6 +25,41 @@ body {
     sans-serif;
   line-height: 1.6;
   color: #1f2937;
-  background-color: #ffffff;
+  background-color: black;
   overflow-x: hidden;
+  cursor: none !important;
+}
+
+.hero-logo {
+  font-family: "Orbitron", sans-serif;
+}
+
+a,
+button,
+input,
+textarea,
+select {
+  cursor: none !important;
+}
+
+html,
+body {
+  overflow-y: scroll;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.frame {
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.frame::-webkit-scrollbar {
+  display: none;
 }

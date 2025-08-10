@@ -1,16 +1,15 @@
-import React, { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import arch from "../assets/arch.jpg";
+import interior from "../assets/interior.jpg";
+import imagem3 from "../assets/producto.jpg";
+import furniture from "../assets/furniture.jpg";
 
-// Simulando as importações das suas imagens
-const image1 =
-  "https://images.unsplash.com/photo-1493663284031-b7e3aaa4cab7?w=800&h=600&fit=crop";
-const image2 =
-  "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop";
-const image3 =
-  "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&h=600&fit=crop";
-const image4 =
-  "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&h=600&fit=crop";
+const image1 = arch;
+const image2 = interior;
+const image3 = imagem3;
+const image4 = furniture;
 
 // Registrar plugins
 gsap.registerPlugin();
@@ -26,12 +25,12 @@ const Hero = () => {
       image: image1,
     },
     {
-      title: "INTERIOR",
-      image: image2,
-    },
-    {
       title: "FURNITURE",
       image: image3,
+    },
+    {
+      title: "INTERIOR",
+      image: image2,
     },
     {
       title: "PRODUCTS",
@@ -43,7 +42,6 @@ const Hero = () => {
   const duplicatedCategories = [...categories, ...categories, ...categories];
 
   useGSAP(() => {
-    // Animação do logo com split text simulado
     const logoChars = logoRef.current.querySelectorAll(".char");
 
     gsap.from(logoChars, {
@@ -98,7 +96,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="bg-black min-h-screen">
+    <div id="home" className="bg-black min-h-screen">
       {/* Hero Section */}
       <section className="hero-section relative w-full h-screen bg-black overflow-hidden">
         {/* Logo Central */}
@@ -109,14 +107,19 @@ const Hero = () => {
           >
             {splitText("HENIE")}
           </h1>
+          <p className="text-center text-gray-500">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda,
+            <br />
+            est? Cumque totam quidem eius doloribus neque deserunt! Unde ratione
+            <br />
+            earum veritatis consectetur accusantium, modi beatae, debitis iusto
+          </p>
         </div>
 
-        {/* Ticker no lugar do Grid */}
         <div
           ref={tickerRef}
           className="absolute bottom-0 left-0 right-0 h-[350px] z-10 overflow-hidden"
         >
-          {/* Fade edges */}
           <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-black to-transparent pointer-events-none z-10"></div>
           <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-black to-transparent pointer-events-none z-10"></div>
 
@@ -128,11 +131,11 @@ const Hero = () => {
                   className="ticker-item flex-shrink-0 mx-6 relative group cursor-pointer"
                 >
                   {/* Imagem */}
-                  <div className="relative w-80 h-[320px] bg-gray-900 overflow-hidden">
+                  <div className="relative w-80 h-[320px] overflow-hidden">
                     <img
                       src={category.image}
                       alt={category.title}
-                      className="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500"
+                      className="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500 rounded-[1rem]"
                     />
 
                     {/* Overlay gradient */}
@@ -146,7 +149,7 @@ const Hero = () => {
                     </div>
 
                     {/* Hover effect */}
-                    <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    <div className="absolute inset-0  opacity-0 group-hover:opacity-100 transition-all duration-500  rounded-[1rem]"></div>
                   </div>
                 </div>
               ))}
