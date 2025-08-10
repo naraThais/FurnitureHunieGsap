@@ -3,93 +3,106 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 
-import image from "../assets/img1.jpg"; // Importa a imagem
+import image1 from "../assets/img1.jpg";
+import image2 from "../assets/img2.jpg";
+import image3 from "../assets/img3.jpg";
+import image4 from "../assets/img4.jpg";
 
 // Registrar plugins
 gsap.registerPlugin(SplitText);
 
 const Hero: React.FC = () => {
+  // Dados das categorias
+  const categories = [
+    {
+      title: "ARCHITECTURE",
+      image: image1,
+    },
+    {
+      title: "INTERIOR",
+      image: image2,
+    },
+    {
+      title: "FURNITURE",
+      image: image3,
+    },
+    {
+      title: "PRODUCTS",
+      image: image4,
+    },
+  ];
+
   useGSAP(() => {
-    // SplitText para o título
-    const titleSplit = new SplitText(".hero-title", {
-      type: "chars, words",
+    // Animação do logo
+    const logoSplit = new SplitText(".hero-logo", {
+      type: "chars",
     });
 
-    // SplitText para o parágrafo
-    const paragraphSplit = new SplitText(".hero-subtitle", {
-      type: "lines",
-    });
-
-    // Adiciona classe de gradiente se necessário
-    titleSplit.chars.forEach((char) => char.classList.add("text-white"));
-
-    // Animação do título - caracteres aparecem de baixo
-    gsap.from(titleSplit.chars, {
-      yPercent: 100,
-      duration: 1.8,
-      ease: "expo.out",
-      stagger: 0.06,
-    });
-
-    // Animação do parágrafo - linhas aparecem com delay
-    gsap.from(paragraphSplit.lines, {
+    gsap.from(logoSplit.chars, {
       opacity: 0,
-      yPercent: 100,
-      duration: 1.8,
+      y: 50,
+      duration: 1.2,
       ease: "expo.out",
-      stagger: 0.06,
-      delay: 1,
+      stagger: 0.08,
+      delay: 0.5,
     });
 
-    // Animação do botão
-    gsap.from(".hero-button", {
+    // Animação das categorias
+    gsap.from(".category-item", {
       opacity: 0,
-      x: -50,
-      duration: 1.5,
+      y: 30,
+      duration: 1,
       ease: "expo.out",
+      stagger: 0.15,
       delay: 1.5,
     });
 
-    // Animação da imagem com parallax no scroll
-    gsap
-      .timeline({
-        scrollTrigger: {
-          trigger: ".hero-section",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      })
-      .to(".hero-content", { y: -100, ease: "none" }, 0);
+    // Animação das imagens do grid
+    gsap.from(".grid-image", {
+      opacity: 0,
+      scale: 0.95,
+      duration: 1.2,
+      ease: "expo.out",
+      stagger: 0.1,
+      delay: 2,
+    });
   }, []);
 
   return (
-    <section className="hero-section flex items-center pt-20 justify-center">
-      <div className="relative mx-auto w-[100%] h-[100vh]">
-        <img
-          className="object-cover w-full h-full hero-bg"
-          src={image}
-          alt="teste"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/90"></div>
+    <section className="hero-section relative w-full h-screen bg-black overflow-hidden">
+      {/* Logo Central */}
+      <div className="absolute inset-0 flex items-center justify-center z-10">
+        <h1 className="hero-logo text-white text-8xl md:text-9xl font-light tracking-wider absolute top-40">
+          HENIE
+        </h1>
+      </div>
 
-        <div className="mb-4 absolute left-20 bottom-30 w-[50%]">
-          <button className="hero-button uppercase bg-transparent border text-brown-200 px-6 py-6 h-16 w-1/2 rounded-full hover:bg-gray-100 hover:text-black transition-colors duration-300 ">
-            Shop Now
-          </button>
-        </div>
-
-        <div className="hero-content absolute right-20 bottom-30 text-right w-[50%]">
-          <h1 className="hero-title text-3xl font-bold text-white overflow-hidden font-serif">
-            Discover Your Perfect Furniture
-          </h1>
-          <p className="hero-subtitle text-2xl text-white mt-4 overflow-hidden">
-            postion absolute quadro relativo e os outros div img img pega div
-            inteira,seta tamanho na div, header fixed dois debaixo position
-            absolute
-          </p>
+      {/* Grid de Categorias e Imagens */}
+      <div className="absolute bottom-0 left-0 right-0 h-[500px] z-10 px-8">
+        <div className="grid grid-cols-4 gap-6 h-full">
+          {categories.map((category, index) => (
+            <div
+              key={index}
+              className="relative bg-black bg-opacity-40 backdrop-blur-sm overflow-hidden"
+            >
+              <img
+                src={category.image}
+                alt={category.title}
+                className="grid-image w-full h-full object-cover opacity-50"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent"></div>
+              <div className="category-item absolute bottom-8 left-8">
+                <h3 className="text-white text-base font-thin tracking-widest drop-shadow-lg">
+                  {category.title}
+                </h3>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
+
+      {/* Background totalmente preto */}
+      <div className="absolute inset-0 bg-black"></div>
     </section>
   );
 };
