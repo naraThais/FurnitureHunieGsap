@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./styles/global.css";
 import Hero from "./components/Hero";
 import Header from "./components/Header";
-import Features from "./components/Features";
+import WeUseWhatWeBuild from "./components/About";
 import ProductGrid from "./components/ProductGrid";
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
     <>
       {!hideHeader && <Header />}
       <Hero />
-      <Features />
+      <WeUseWhatWeBuild />
       <div ref={productGridRef}>
         <ProductGrid />
       </div>
